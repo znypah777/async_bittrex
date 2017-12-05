@@ -1,7 +1,8 @@
 import asyncio
 
 from typing import Tuple, List, Dict, Any, Optional
-from bittrex.groups.protected_group import protected_group_factory
+from async_bittrex.groups.protected_group import protected_group_factory
+
 
 
 class Account_v1_1(protected_group_factory.get_version("v1.1")):
@@ -123,4 +124,5 @@ class Account_v1_1(protected_group_factory.get_version("v1.1")):
         for market in markets:
             tasks.append(self.get_deposit_history(market, extra_headers=extra_headers))
         return await asyncio.gather(*tasks)
+
 

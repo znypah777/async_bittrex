@@ -1,6 +1,6 @@
 
 
-from bittrex.bases.factory import ProtectedSectionBaseFactory
+from async_bittrex.bases.factory import ProtectedSectionBaseFactory
 
 protected_group_factory = ProtectedSectionBaseFactory()
 

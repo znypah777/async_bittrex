@@ -1,4 +1,4 @@
-from bittrex.bases.factory import ProtectedSectionBaseFactory
+from async_bittrex.bases.factory import ProtectedSectionBaseFactory
 
 
 account_factory = ProtectedSectionBaseFactory()

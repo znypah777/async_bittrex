@@ -2,7 +2,7 @@
 
 import asyncio
 from typing import Dict, List, Optional
-from bittrex.groups.public_group import public_group_factory
+from async_bittrex.groups.public_group import public_group_factory
 
 class Public_v1_1(public_group_factory.get_version("v1.1")):
     MARKETS = "/public/getmarkets"
@@ -55,3 +55,5 @@ class Public_v1_1(public_group_factory.get_version("v1.1")):
         for market in markets:
             tasks.append(self.get_market_history(market, extra_headers))
         return await asyncio.gather(*tasks)
+
+class

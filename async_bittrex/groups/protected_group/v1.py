@@ -3,7 +3,7 @@
 import aiohttp
 import time
 
-from bittrex.groups.base_group import basegroup_factory
+from async_bittrex.groups.base_group import basegroup_factory
 
 class ProtectedGroup_v1_1(basegroup_factory.get_version("v1.1")):
     def __init__(self, session: aiohttp.ClientSession, api_key: str, api_secret: str, api_version: str):

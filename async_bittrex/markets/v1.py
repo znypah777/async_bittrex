@@ -3,8 +3,7 @@ import asyncio
 
 from typing import Dict, Any, List, Optional
 
-from . import market_factory
-from bittrex.groups.protected_group import protected_group_factory
+from async_bittrex.groups.protected_group import protected_group_factory
 
 
 class Market_v1_1(protected_group_factory.get_version("v1.1")):

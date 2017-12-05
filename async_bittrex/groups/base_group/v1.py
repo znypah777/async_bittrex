@@ -1,4 +1,4 @@
-from bittrex.bases.group import BaseGroup as Base
+from async_bittrex.bases.group import BaseGroup as Base
 from typing import Dict, Any, Optional
 
 import hmac
@@ -26,5 +26,7 @@ class BaseGroup_v1_1(Base):
         if extra_headers is not None:
             headers.update(extra_headers)
         return await self._get(target, headers=headers)
+
+
 
 

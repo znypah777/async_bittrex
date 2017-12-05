@@ -1,4 +1,4 @@
-from bittrex.bases.factory import PublicSectionBaseFactory
+from async_bittrex.bases.factory import PublicSectionBaseFactory
 
 
 

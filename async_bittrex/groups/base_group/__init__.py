@@ -1,5 +1,5 @@
 
-from bittrex.bases.factory import BaseGroupFactory
+from async_bittrex.bases.factory import BaseGroupFactory
 
 
 

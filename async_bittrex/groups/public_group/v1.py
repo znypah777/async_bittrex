@@ -1,6 +1,6 @@
 import aiohttp
 
-from bittrex.groups.base_group import basegroup_factory
+from async_bittrex.groups.base_group import basegroup_factory
 
 
 class PublicGroup_v1_1(basegroup_factory.get_version("v1.1")):
