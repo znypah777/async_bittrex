@@ -1,10 +1,12 @@
-import aiohttp
 
-from async_bittrex.groups.base_group import basegroup_factory
+from typing import Optional, Dict
 
+class PublicGroup_v1_1:
+    def __init__(self, group: str):
+        self._group = group
 
-class PublicGroup_v1_1(basegroup_factory.get_version("v1.1")):
-    def __init__(self, session: aiohttp.ClientSession, api_secret: str, api_version: str):
-        super().__init__(session, api_version)
-        self._api_secret = api_secret
-
+    async def get_query(self,
+                         endpoint: str,
+                         params: Optional[Dict[str, str]]=None,
+                         extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, str]:
+        return await self._group.get_query(endpoint, params=params, extra_headers=extra_headers)
