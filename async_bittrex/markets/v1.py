@@ -3,16 +3,17 @@ import asyncio
 
 from typing import Dict, Any, List, Optional
 
-from async_bittrex.groups.protected_group import protected_group_factory
 
-
-class Market_v1_1(protected_group_factory.get_version("v1.1")):
+class Market_v1_1:
 
     BUY_LIMIT = "/market/buylimit"
     SELL_LIMIT = "/market/selllimit"
     CANCEL = "/market/cancel"
     OPEN_ORDERS = "/market/getopenorders"
-
+    
+    def __init__(self, group):
+        self._group = group
+    
     async def buy_limit(self,
                         market: str,
                         quantity: float,
@@ -21,8 +22,8 @@ class Market_v1_1(protected_group_factory.get_version("v1.1")):
         params = {"market": market,
                   "quantity": quantity,
                   "rate": rate,
-                  **self._get_protected_params()}
-        response = await self._get_query(Market_v1_1.BUY_LIMIT, params=params, extra_headers=extra_headers)
+                  **self._group.get_protected_params()}
+        response = await self._group.get_query(Market_v1_1.BUY_LIMIT, params=params, extra_headers=extra_headers)
         response["market"] = market
         return response
 
@@ -43,8 +44,8 @@ class Market_v1_1(protected_group_factory.get_version("v1.1")):
         params = {"market": market,
                   "quantity": quantity,
                   "rate": rate,
-                  **self._get_protected_params()}
-        response = await self._get_query(Market_v1_1.SELL_LIMIT, params=params, extra_headers=extra_headers)
+                  **self._group.get_protected_params()}
+        response = await self._group.get_query(Market_v1_1.SELL_LIMIT, params=params, extra_headers=extra_headers)
         response["market"] = market
         return response
     
@@ -59,10 +60,10 @@ class Market_v1_1(protected_group_factory.get_version("v1.1")):
         
 
     async def cancel(self, uuid: str, extra_headers: Optional[Dict[str, str]]=None) -> Dict[str,Any]:
-        response = await self._get_query(Market_v1_1.CANCEL,
-                                     params={"uuid":uuid,
-                                             **self._get_protected_params()},
-                                     extra_headers=extra_headers)
+        response = await self._group.get_query(Market_v1_1.CANCEL,
+                                               params={"uuid":uuid,
+                                             **self._group.get_protected_params()},
+                                               extra_headers=extra_headers)
         response["order_id"] = uuid
         return response
 
@@ -74,10 +75,10 @@ class Market_v1_1(protected_group_factory.get_version("v1.1")):
         return await asyncio.gather(*tasks)
 
     async def get_open_orders(self, market: Optional[str] = None, extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, Any]:
-        params = self._get_protected_params()
+        params = self._group.get_protected_params()
         if market is not None:
             params["market"] = market
-        response  = await self._get_query(Market_v1_1.OPEN_ORDERS, params=params,extra_headers=extra_headers)
+        response  = await self._group.get_query(Market_v1_1.OPEN_ORDERS, params=params, extra_headers=extra_headers)
         response["market"] = market
         return response
 
