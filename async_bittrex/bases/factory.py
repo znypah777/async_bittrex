@@ -4,6 +4,9 @@ from typing import Any, Union, Dict
 
 
 class _BaseFactory:
+    """
+    Base Factory for Building The classes
+    """
     def __init__(self):
 
         self._versions = {}
@@ -20,6 +23,10 @@ class _BaseFactory:
 
 
 class PublicSectionBaseFactory(_BaseFactory):
+    """
+    Factory for all the public sections.
+    as of v1.1 the Bittrex api only has one public section called public
+    """
 
     def __call__(self, session:aiohttp.ClientSession, api_secret:str, api_version: str) -> Any:
         version = self.get_version(api_version)
@@ -30,6 +37,10 @@ class PublicSectionBaseFactory(_BaseFactory):
 
 
 class ProtectedSectionBaseFactory(PublicSectionBaseFactory):
+    """
+       Factory for all the protectd sections.
+       as of v1.1 the Bittrex api only has 2 protected sections called called Market and Account
+    """
     def __call__(self, session: aiohttp.ClientSession, api_key:str, api_secret: str, api_version: str) -> Any:
         version = self.get_version(api_version)
         base = version["group"]["group"](session, api_secret, api_version)
@@ -40,6 +51,11 @@ class ProtectedSectionBaseFactory(PublicSectionBaseFactory):
 
 
 class BaseGroupFactory(_BaseFactory):
+    """
+        This class is for the BaseGroup. the Basegroup being the class that has methods that both
+        the public and protected group wil be using
+    """
+
     def __call__(self, session: aiohttp.ClientSession, group_version: str) -> object:
         version = self.get_version(group_version)
         return version(session, group_version)
