@@ -48,33 +48,34 @@ from this point forward we will now refer to the initialized factories as such:
 > #MARKETS
 
 
-market.buy_limit
+_**market.buy_limit**_
 
 `response = await market.buy_limit("BTC",  4.0, 4.0)`
 
-market.buy_limits
+_**market.buy_limits**_
 
 `response = await market.buy_limit([{"currency": "BTC",  "rate": 4.0, "quantity:" 4.0], {"currency": "ADA", "rate": 5.0, "quantity": 4.0})`
 
-market.sell_limit
+_**market.sell_limit**_
+
 `response = await market.sell_limit("BTC",  4.0, 4.0)`
 
 
 
-market.sell_limits
+_**market.sell_limits**_
 
 `response = await market.sell_limits([{"currency": "BTC",  "rate": 4.0, "quantity:" 4.0], {"currency": "ADA", "rate": 5.0, "quantity": 4.0})`
 
 
-market.cancel
+_**market.cancel**_
 
 `response = await market.cancel("some_uuid")`
 
-market.cancel_many
+_**market.cancel_many**_
 
 `response = await market.cancel(["some_uuid1", "some_uuid2", "some_uuid3"])`
 
-market.get_open_orders
+_**market.get_open_orders**_
 
     \\returns all open orders 
     response = await market.get_open_orders()
@@ -83,7 +84,7 @@ market.get_open_orders
     response = await market.get_open_orders("BTC")
 
 
-market.get_open_orders_for
+_**market.get_open_orders_for**_
 
     \\returns all open orders for specified markets 
     response = await market.get_open_orders_for(["BTC-ETH", "BTC-ADA"])
@@ -94,23 +95,23 @@ market.get_open_orders_for
 
 > #Accounts
 
-account.get_balance
+_**account.get_balance**_
 
 `response = await account.get_balance("BTC")`
 
-account.get_balances
+_**account.get_balances**_
 
 `response = await account.get_balances(["BTC", "ADA", "IOT"])`
 
-account.get_deposit_address
+_**account.get_deposit_address**_
 
 `response = await account.get_deposit_address("BTC")`
 
-account.get_deposit_addresses
+_**account.get_deposit_addresses**_
 
 `response = await account.get_deposit_addresses(["BTC", "ADA", "IOT"])`
 
-account.withdraw
+_**account.withdraw**_
 
     \\ takes a curreny: str
                quantity: int
@@ -119,7 +120,7 @@ account.withdraw
                
     response = await account.withdraw("BTC", 10, "your btc address")
 
-account.withdraw_multiple
+_**account.withdraw_multiple**_
 
     
       items = [
@@ -137,14 +138,15 @@ account.withdraw_multiple
     \\ takes a list of dictionaries
       response = await account.withdraw_multiple(items)
 
-  account.get_order
-  `response = await account.get_order("some_uuid"))`
+_**account.get_order**_
+
+`response = await account.get_order("some_uuid"))`
   
-account.get_orders
+_**account.get_orders**_
 
 `response = await account.get_orders(["uuid1", "uuid2", "uuid3"])`
   
-account.get_order_history
+_**account.get_order_history**_
  
 
      //get all order history from all avaliable markets
@@ -153,13 +155,13 @@ account.get_order_history
     //get order history from one specific market
     response = await account.get_order_history("BTC-ADA")
 
-account.get_order_histories
+_**account.get_order_histories**_
 
     // get multiple order histories from specified markets
      response = await account.get_order_history(["BTC-ADA", "BTC-ETH", "BTC-IOT"])
 
 
-account.get_withdrawal_history
+_**account.get_withdrawal_history**_
  
 
      //get all withdrawal history from all avaliable markets
@@ -168,13 +170,14 @@ account.get_withdrawal_history
     //get withdrawal history from one specific market
     response = await account.get_withdrawal_history("BTC-ADA")
 
-account.get_withdrawal_histories
+
+_**account.get_withdrawal_histories**_
 
     // get multiple withdrawal histories from specified markets
      response = await account.get_withdrawal_histories(["BTC-ADA", "BTC-ETH", "BTC-IOT"])
   
 
-account.get_deposit_history
+_**account.get_deposit_history**_
  
 
      //get all deposit history from all avaliable markets
@@ -183,7 +186,7 @@ account.get_deposit_history
     //get deposit history from one specific market
     response = await account.get_deposit_history("BTC-ADA")
 
-account.get_deposit_histories
+_**account.get_deposit_histories**_
 
     // get multiple withdrawal histories from specified markets
      response = await account.get_deposit_histories(["BTC-ADA", "BTC-ETH", "BTC-IOT"])
@@ -193,64 +196,64 @@ account.get_deposit_histories
 
 > #Public
 
-public.get_markets
+_**public.get_markets**_
 
 `response = await public.get_markets()`
 
-public.get_currencies
+_**public.get_currencies**_
 
 `response = await public.get_currencies()`
 
-public.get_ticker
+_**public.get_ticker**_
 
     // takes a market: str to get a ticker of
     market = ["BTC""] 
     `response = await public.get_ticker(market)`
 
-public.get_tickers
+_**public.get_tickers**_
 
     //takes list of markets to get tickers of
     markets = ["BTC", "ADA", "IOT"]
     response = await public.get_tickers(markets)
 
 
-public.get_market_summary
+_**public.get_market_summary**_
 
     //takes a market to get a summary of
     market = "BTC"
     response = await public.get_market_summary(market)
     
-public.get_market_summaries
+_**public.get_market_summaries**_
 
     //takes all summaries of the marke. takes no arguments
     response = await public.get_market_summaries()
  
 
-public.get_market_summary_for
+**_public.get_market_summary_for_**
 
     //takes all summaries of specified markets
     markets = ["BTC", "ADA", "IOT"]
     response = await public.get_market_summaries_for(markets)
 
-public.get_orderbook
+_**public.get_orderbook**_
 
     //takes a market to get an order book of
     market = "BTC"
     response = await public.get_orderbook(market)
 
-public.get_orderbooks
+_**public.get_orderbooks**_
 
     //takes a list of markets to get an orders book of
     markets = ["BTC", "ADA", "IOT"]
     response = await public.get_orderbooks(market)
 
-public.get_market_history
+_**public.get_market_history**_
   
      //takes a markets to get a history of
         market = "BTC",
         response = await public.get_market_history(market)
 
-public.get_market_histories
+_**public.get_market_histories**_
 
     //takes a list of markets to get histories of
     markets = ["BTC", "ADA", "IOT"]
