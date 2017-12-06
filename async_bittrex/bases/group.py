@@ -4,7 +4,9 @@ from typing import Dict, Any
 
 
 class BaseGroup:
-
+    """
+        contains the methods that does the actual calls to the api
+    """
     def __init__(self, session: aiohttp.ClientSession):
         self._session = session
 
