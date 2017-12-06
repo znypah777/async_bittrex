@@ -57,7 +57,6 @@ class Market_v1_1:
                                         data["rate"],
                                         extra_headers=extra_headers))
         return await asyncio.gather(*tasks)
-        
 
     async def cancel(self, uuid: str, extra_headers: Optional[Dict[str, str]]=None) -> Dict[str,Any]:
         response = await self._group.get_query(Market_v1_1.CANCEL,
@@ -67,12 +66,8 @@ class Market_v1_1:
         response["order_id"] = uuid
         return response
 
-
     async def cancel_many(self, uuids: List[str], extra_headers: Optional[Dict[str, str]]=None) -> List[Dict[str, Any]]:
-        tasks = []
-        for uuid in uuids:
-            tasks.append(self.cancel(uuid, extra_headers=extra_headers))
-        return await asyncio.gather(*tasks)
+        return await self._group.get_multiple(uuids, self.get_open_orders, extra_headers=extra_headers)
 
     async def get_open_orders(self, market: Optional[str] = None, extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, Any]:
         params = self._group.get_protected_params()
@@ -83,10 +78,4 @@ class Market_v1_1:
         return response
 
     async def get_open_orders_for(self, markets: List[str], extra_headers: Optional[Dict[str, str]]=None) -> List[Dict[str, Any]]:
-        tasks = []
-        for market in markets:
-            tasks.append(self.get_open_orders(market, extra_headers=extra_headers))
-        return await asyncio.gather(*tasks)
-
-
-
+        return await self._group.get_multiple(markets, self.get_open_orders, extra_headers=extra_headers)

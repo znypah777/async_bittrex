@@ -1,6 +1,4 @@
 
-
-import asyncio
 from typing import Dict, List, Optional
 
 class Public_v1_1:
@@ -26,17 +24,17 @@ class Public_v1_1:
         resp["market"] = market
         return resp
 
-    async def get_tickers(self, markets: List[str], extra_headers: Optional[Dict[str, str]]=None):
-        tasks = []
-        for market in markets:
-            tasks.append(self.get_ticker(market, extra_headers=extra_headers))
-        return await asyncio.gather(*tasks)
+    async def get_tickers(self, markets: List[str], extra_headers: Optional[Dict[str, str]]=None) -> List[Dict[str, str]]:
+        return await self._group.get_multiple(markets, self.get_market_history, extra_headers=extra_headers)
 
-    async def get_market_summaries(self, extra_headers: Optional[Dict[str, str]]=None):
+    async def get_market_summaries(self, extra_headers: Optional[Dict[str, str]]=None) -> Dict[str,str]:
         return await self._group.get_query(Public_v1_1.MARKET_SUMMARIES, extra_headers=extra_headers)
 
-    async def get_market_summary(self, market: str, extra_headers: Optional[Dict[str, str]]=None):
+    async def get_market_summary(self, market: str, extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, str]:
         return await self._group.get_query(Public_v1_1.MARKET_SUMMARY, params={"market": market}, extra_headers=extra_headers)
+
+    async def get_market_summary_for(self, markets: List[str], extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, str]:
+        return await self._group.get_multiple(markets, self.get_market_summary, extra_headers=extra_headers)
 
     async def get_orderbook(self, market: str, orderbook_type:str, extra_headers: Optional[Dict[str, str]]=None):
         response = await self._group.get_query(Public_v1_1.MARKET_SUMMARY,
@@ -44,6 +42,9 @@ class Public_v1_1:
                                                extra_headers=extra_headers)
         response["market"] = market
         return response
+
+    async def get_orderbooks(self, markets: List[str], extra_headers: Optional[Dict[str, str]]=None) -> List[Dict[str, str]]:
+        return await self._group.get_multiple(markets, self.get_orderbook, extra_headers=extra_headers)
 
     async def get_market_history(self, market: str, extra_headers: Optional[Dict[str, str]]=None):
         response = await self._group.get_query(Public_v1_1.MARKET_HISTORY,
@@ -53,7 +54,4 @@ class Public_v1_1:
         return response
 
     async def get_market_histories(self, markets: List[str],  extra_headers: Optional[Dict[str, str]]=None):
-        tasks = []
-        for market in markets:
-            tasks.append(self.get_market_history(market, extra_headers))
-        return await asyncio.gather(*tasks)
+        return await self._group.get_multiple(markets, self.get_market_history, extra_headers=extra_headers)
