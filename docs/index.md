@@ -49,9 +49,11 @@ from this point forward we will now refer to the initialized factories as such:
 
 
 market.buy_limit
+
 `response = await market.buy_limit("BTC",  4.0, 4.0)`
 
 market.buy_limits
+
 `response = await market.buy_limit([{"currency": "BTC",  "rate": 4.0, "quantity:" 4.0], {"currency": "ADA", "rate": 5.0, "quantity": 4.0})`
 
 market.sell_limit
@@ -60,13 +62,16 @@ market.sell_limit
 
 
 market.sell_limits
+
 `response = await market.sell_limits([{"currency": "BTC",  "rate": 4.0, "quantity:" 4.0], {"currency": "ADA", "rate": 5.0, "quantity": 4.0})`
 
 
 market.cancel
+
 `response = await market.cancel("some_uuid")`
 
 market.cancel_many
+
 `response = await market.cancel(["some_uuid1", "some_uuid2", "some_uuid3"])`
 
 market.get_open_orders
@@ -90,15 +95,19 @@ market.get_open_orders_for
 > #Accounts
 
 account.get_balance
+
 `response = await account.get_balance("BTC")`
 
 account.get_balances
+
 `response = await account.get_balances(["BTC", "ADA", "IOT"])`
 
 account.get_deposit_address
+
 `response = await account.get_deposit_address("BTC")`
 
 account.get_deposit_addresses
+
 `response = await account.get_deposit_addresses(["BTC", "ADA", "IOT"])`
 
 account.withdraw
@@ -132,6 +141,7 @@ account.withdraw_multiple
   `response = await account.get_order("some_uuid"))`
   
 account.get_orders
+
 `response = await account.get_orders(["uuid1", "uuid2", "uuid3"])`
   
 account.get_order_history
@@ -184,9 +194,11 @@ account.get_deposit_histories
 > #Public
 
 public.get_markets
+
 `response = await public.get_markets()`
 
 public.get_currencies
+
 `response = await public.get_currencies()`
 
 public.get_ticker
