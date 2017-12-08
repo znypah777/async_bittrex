@@ -1,12 +1,14 @@
-from setuptools import setup
+import os
+from setuptools import setup, find_packages
 
-setup(name='pyasync-bittrex',
+
+
+setup(name='async_bittrex',
       version='0.0.1',
       url = "https://github.com/halcyonjuly7/async_bittrex",
-      packages=['async_bittrex'],
-      modules=['async_bittrex'],
+      packages=find_packages(exclude=[".docs/", ".venv/"]),
       install_requires=["aiohttp>=2.3.5",
-                        "async - timeout>=2.0.0",
+                        "async-timeout>=2.0.0",
                         "chardet>=3.0.4",
                         "multidict>=3.3.2",
                         "yarl>=0.15.0"
