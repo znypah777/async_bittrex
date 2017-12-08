@@ -25,7 +25,7 @@ class Public_v1_1:
         return resp
 
     async def get_tickers(self, markets: List[str], extra_headers: Optional[Dict[str, str]]=None) -> List[Dict[str, str]]:
-        return await self._group.get_multiple(markets, self.get_market_history, extra_headers=extra_headers)
+        return await self._group.get_multiple(markets, self.get_ticker, extra_headers=extra_headers)
 
     async def get_market_summaries(self, extra_headers: Optional[Dict[str, str]]=None) -> Dict[str,str]:
         return await self._group.get_query(Public_v1_1.MARKET_SUMMARIES, extra_headers=extra_headers)
