@@ -25,8 +25,13 @@ class BaseGroup_v1_1(Base):
             generates the url format for a specific endpoint and the endpoint's params
         """
         if params:
+<<<<<<< HEAD
             return f"{self.BASE_URL}/{self._api_version}{endpoint}?{urlencode(params)}"
         return f"{self.BASE_URL}/{self._api_version}{endpoint}"
+=======
+            return f"{BaseGroup_v1_1.BASE_URL}/{self._api_version}{endpoint}?{urlencode(params)}"
+        return f"{BaseGroup_v1_1.BASE_URL}/{self._api_version}{endpoint}"
+>>>>>>> 2848be7fbd43c38bbf7a58905e918fd5508c0b4b
 
     def _gen_api_sig(self, endpoint: str) -> str:
         """
@@ -62,9 +67,13 @@ class BaseGroup_v1_1(Base):
         tasks = []
         for item in items:
             tasks.append(call_back(item, extra_headers=extra_headers))
+<<<<<<< HEAD
         return await asyncio.gather(*tasks)
 
 
 
 class BaseGroupV2_2(BaseGroup_v1_1):
     BASE_URL = "https://bittrex.com/Api"
+=======
+        return await asyncio.gather(*tasks)
+>>>>>>> 2848be7fbd43c38bbf7a58905e918fd5508c0b4b

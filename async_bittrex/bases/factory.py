@@ -11,6 +11,7 @@ class _BaseFactory:
 
         self._versions = {}
 
+
     def get_version(self, version:str) -> Union[object, Dict[str, object]]:
         if version in self._versions:
             return self._versions[version]
@@ -42,7 +43,6 @@ class PublicSectionFactory(_SectionFactory):
     """
 
 
-
     def __call__(self, session:aiohttp.ClientSession, api_secret:str, api_version: str) -> Any:
         version = self.get_version(api_version)
         internal_group = version["access_group"]["internal_group"](session, api_secret, api_version)
@@ -52,6 +52,7 @@ class PublicSectionFactory(_SectionFactory):
 
 
 class ProtectedSectionFactory(_SectionFactory):
+
     """
        Factory for all the protectd sections.
        as of v1.1 the Bittrex api only has 2 protected sections called called Market and Account
@@ -63,14 +64,10 @@ class ProtectedSectionFactory(_SectionFactory):
         section = version["section"](group, version["endpoints"])
         return section
 
-
-
 class InternalGroupFactory(_BaseFactory):
     """
         This class is for the InternalGroup. the InternalGroup being the class that has methods that both
-        the public and protected group wil be using
     """
-
     def __call__(self, session: aiohttp.ClientSession, group_version: str) -> object:
         version = self.get_version(group_version)
         return version(session, group_version)

@@ -3,6 +3,7 @@ import asyncio
 
 from typing import Dict, Any, List, Optional
 
+
 class Market_v1_1:
     def __init__(self, group:object, endpoints: Dict[str, str]):
         self._group = group
@@ -12,7 +13,8 @@ class Market_v1_1:
                         market: str,
                         quantity: float,
                         rate: float,
-                        extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
+
+                        extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, Any]:
         params = {"market": market,
                   "quantity": quantity,
                   "rate": rate,
@@ -25,11 +27,12 @@ class Market_v1_1:
                          market: str,
                          quantity: float,
                          rate: float,
-                         extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
+                         extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, Any]:
         params = {"market": market,
                   "quantity": quantity,
                   "rate": rate,
                   **self._group.get_protected_params()}
+
         response = await self._group.get_query(self._endpoints["SELL_LIMIT"], params=params, extra_headers=extra_headers)
         response["market"] = market
         return response
@@ -52,3 +55,4 @@ class Market_v1_1:
         response = await self._group.get_query(self._endpoints["OPEN_ORDERS"], params=params, extra_headers=extra_headers)
         response["market"] = market
         return response
+

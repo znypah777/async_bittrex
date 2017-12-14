@@ -29,6 +29,7 @@ class Public_v1_1:
         response = await self._group.get_query(self._endpoints["MARKET_SUMMARY"],
                                                params={"market": market, "type": orderbook_type},
                                                extra_headers=extra_headers)
+
         response["market"] = market
         return response
 
@@ -38,6 +39,7 @@ class Public_v1_1:
                                                extra_headers=extra_headers)
         response["market"] = market
         return response
+
 
 
 class PublicV2_2(Public_v1_1):
@@ -53,6 +55,3 @@ class PublicV2_2(Public_v1_1):
         return await self._group.get_query(self._endpoint["TICKS"], params={"marketName": market,
                                                                       "tickInterval": interval,
                                                                       "_": timestamp})
-
-
-
