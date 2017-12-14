@@ -1,11 +1,11 @@
 from async_bittrex.bases.group import BaseGroup as Base
-from typing import Dict, Any, Optional, List, Callable, Awaitable, Union
+from typing import Dict, Optional
 from urllib.parse import urlencode
 
 import hmac
 import hashlib
 import aiohttp
-import asyncio
+
 
 
 class BaseGroup_v1_1(Base):
@@ -25,13 +25,9 @@ class BaseGroup_v1_1(Base):
             generates the url format for a specific endpoint and the endpoint's params
         """
         if params:
-<<<<<<< HEAD
             return f"{self.BASE_URL}/{self._api_version}{endpoint}?{urlencode(params)}"
         return f"{self.BASE_URL}/{self._api_version}{endpoint}"
-=======
-            return f"{BaseGroup_v1_1.BASE_URL}/{self._api_version}{endpoint}?{urlencode(params)}"
-        return f"{BaseGroup_v1_1.BASE_URL}/{self._api_version}{endpoint}"
->>>>>>> 2848be7fbd43c38bbf7a58905e918fd5508c0b4b
+
 
     def _gen_api_sig(self, endpoint: str) -> str:
         """
@@ -57,23 +53,5 @@ class BaseGroup_v1_1(Base):
         return await self._get(target, headers=headers)
 
 
-    async def get_multiple(self,
-                           items: List[str],
-                           call_back: Callable[[str], Awaitable[List[Dict[str, str]]]],
-                           extra_headers:Optional[Dict[str, Any]]=None) -> List[Dict[str ,str]]:
-        """
-            Helper method to do bulk call on certain endpoints that only has one required field
-        """
-        tasks = []
-        for item in items:
-            tasks.append(call_back(item, extra_headers=extra_headers))
-<<<<<<< HEAD
-        return await asyncio.gather(*tasks)
-
-
-
 class BaseGroupV2_2(BaseGroup_v1_1):
     BASE_URL = "https://bittrex.com/Api"
-=======
-        return await asyncio.gather(*tasks)
->>>>>>> 2848be7fbd43c38bbf7a58905e918fd5508c0b4b
