@@ -26,7 +26,7 @@ class Public_v1_1:
         return await self._group.get_query(self._endpoints["MARKET_SUMMARY"], params={"market": market}, extra_headers=extra_headers)
 
     async def get_orderbook(self, market: str, orderbook_type:str, extra_headers: Optional[Dict[str, str]]=None):
-        response = await self._group.get_query(self._endpoints["MARKET_SUMMARY"],
+        response = await self._group.get_query(self._endpoints["ORDER_BOOK"],
                                                params={"market": market, "type": orderbook_type},
                                                extra_headers=extra_headers)
 
@@ -39,7 +39,6 @@ class Public_v1_1:
                                                extra_headers=extra_headers)
         response["market"] = market
         return response
-
 
 
 class PublicV2_2(Public_v1_1):
