@@ -29,13 +29,3 @@ class ProtectedGroup_v1_1:
             Wrapper for the basegroup get_query method to avoid feature envy
         """
         return await self._group.get_query(endpoint, params=params, extra_headers=extra_headers)
-
-    async def get_multiple(self,
-                           items: List[str],
-                           call_back: Callable[[str], Awaitable[List[Dict[str, str]]]],
-                           extra_headers: Optional[Dict[str, Any]] = None) -> List[Dict[str, str]]:
-        """
-            Wrapper for the basegroup get_multiple method to avoid feature envy
-        """
-
-        return await self._group.get_multiple(items, call_back, extra_headers=extra_headers)
