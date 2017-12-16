@@ -6,8 +6,6 @@ import hmac
 import hashlib
 import aiohttp
 
-
-
 class BaseGroup_v1_1(Base):
     """
         this class contains methods that are used by both the public and protected groups
@@ -19,7 +17,6 @@ class BaseGroup_v1_1(Base):
         self._api_secret = api_secret
         self._api_version = api_version
 
-
     def _generate_url(self, endpoint:str, params:Dict[str, str]=None) -> str:
         """
             generates the url format for a specific endpoint and the endpoint's params
@@ -27,7 +24,6 @@ class BaseGroup_v1_1(Base):
         if params:
             return f"{self.BASE_URL}/{self._api_version}{endpoint}?{urlencode(params)}"
         return f"{self.BASE_URL}/{self._api_version}{endpoint}"
-
 
     def _gen_api_sig(self, endpoint: str) -> str:
         """
@@ -39,9 +35,9 @@ class BaseGroup_v1_1(Base):
                         hashlib.sha512).hexdigest()
 
     async def get_query(self,
-                         endpoint: str,
-                         params: Optional[Dict[str, str]]=None,
-                         extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, str]:
+                        endpoint: str,
+                        params: Optional[Dict[str, str]]=None,
+                        extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, str]:
         """
             Does the actual query which formats the endpoint and creates the HMAC hash for the endpoint
         """
