@@ -3,8 +3,12 @@ import asyncio
 from typing import List, Dict, Any, Optional
 
 
-
 class Account_v1_1:
+    """
+    Account section of Bittrex API as of v1.1
+
+    contains all the methods the Account section has
+    """
 
     def __init__(self, group: object, endpoints:Dict[str, str]):
         self._group = group
@@ -17,34 +21,17 @@ class Account_v1_1:
         }
         return await self._group.get_query(self._endpoints["BALANCE"], params=params, extra_headers=extra_headers)
 
-
-
-    async def get_deposit_address(self, currency, extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
+    async def get_deposit_address(self,
+                                  currency: str,
+                                  extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
         return await self._group.get_query(self._endpoints["DEPOSIT_ADDRESS"],
                                            params={"currency": currency,
-                                             **self._group.get_protected_params()},
+                                                   **self._group.get_protected_params()},
                                            extra_headers=extra_headers)
         return await self._group.get_query(Account_v1_1.BALANCE, params=params, extra_headers=extra_headers)
 
-    async def get_balances(self,
-                           currencies: List[str],
-                           extra_headers: Optional[Dict[str, str]] = None) -> List[Dict[str, str]]:
-        return await self._group.get_multiple(currencies, self.get_balance, extra_headers=extra_headers)
-
-    async def get_deposit_address(self, currency, extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
-        return await self._group.get_query(Account_v1_1.DEPOSIT_ADDRESS,
-                                           params={"currency": currency,
-                                             **self._group.get_protected_params()},
-                                           extra_headers=extra_headers)
-
-    async def get_deposit_addresses(self,
-                                    currencies: List[str],
-                                    extra_headers: Optional[Dict[str, str]] = None) -> List[Dict[str, Any]]:
-        return await self._group.get_multiple(currencies, self.get_deposit_address, extra_headers=extra_headers)
-
-
-
-    async def withdraw(self, currency: str,
+    async def withdraw(self,
+                       currency: str,
                        quantity: int,
                        address: str,
                        payment_id: Optional[int] = None,
@@ -64,12 +51,6 @@ class Account_v1_1:
     async def get_order(self, uuid: str, extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
         return await self._group.get_query(self._endpoints["ORDER"], params={"uuid": uuid}, extra_headers=extra_headers)
 
-
-
-    async def get_order(self, uuid: str, extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
-        return await self._group.get_query(Account_v1_1.ORDER, params={"uuid": uuid}, extra_headers=extra_headers)
-
-
     async def get_order_history(self,
                                 market: Optional[str] = None,
                                 extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
@@ -83,8 +64,8 @@ class Account_v1_1:
             response["market"] = market
         return response
 
-
-    async def get_withdrawal_history(self, market: Optional[str] = None,
+    async def get_withdrawal_history(self,
+                                     market: Optional[str] = None,
                                      extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
         params = self._group.get_protected_params()
         if market is not None:
