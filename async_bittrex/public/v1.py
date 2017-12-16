@@ -3,6 +3,11 @@ from typing import Dict, List, Optional
 from datetime import datetime
 
 class Public_v1_1:
+    """
+      Public section of Bittrex API as of v1.1
+
+      contains all the methods the public section has
+    """
 
     def __init__(self, group, endpoints):
         self._group = group
@@ -15,7 +20,9 @@ class Public_v1_1:
         return await self._group.get_query(self._endpoints["CURRENCIES"], extra_headers=extra_headers)
 
     async def get_ticker(self, market:str, extra_headers: Optional[Dict[str, str]]=None):
-        resp = await self._group.get_query(self._endpoints["TICKER"], params={"market": market}, extra_headers=extra_headers)
+        resp = await self._group.get_query(self._endpoints["TICKER"],
+                                           params={"market": market},
+                                           extra_headers=extra_headers)
         resp["market"] = market
         return resp
 
@@ -23,7 +30,9 @@ class Public_v1_1:
         return await self._group.get_query(self._endpoints["MARKET_SUMMARIES"], extra_headers=extra_headers)
 
     async def get_market_summary(self, market: str, extra_headers: Optional[Dict[str, str]]=None) -> Dict[str, str]:
-        return await self._group.get_query(self._endpoints["MARKET_SUMMARY"], params={"market": market}, extra_headers=extra_headers)
+        return await self._group.get_query(self._endpoints["MARKET_SUMMARY"],
+                                           params={"market": market},
+                                           extra_headers=extra_headers)
 
     async def get_orderbook(self, market: str, orderbook_type:str, extra_headers: Optional[Dict[str, str]]=None):
         response = await self._group.get_query(self._endpoints["ORDER_BOOK"],
@@ -42,15 +51,27 @@ class Public_v1_1:
 
 
 class PublicV2_2(Public_v1_1):
-    async def get_ticker(self, market:str, interval:str, extra_headers: Optional[Dict[str, str]]=None):
-        timestamp = datetime.now().strftime("%s")
+    async def get_ticker(self,
+                         market:str,
+                         interval:str,
+                         timestamp: Optional[str]=None,
+                         extra_headers: Optional[Dict[str, str]]=None):
+        if timestamp is None:
+            timestamp = datetime.now().strftime("%s")
         return await self._group.get_query(self._endpoints["LATEST_TICK"],
                                            params={"marketName": market,
                                                    "tickInterval": interval,
-                                                   "_": timestamp})
+                                                   "_": timestamp},
+                                           extra_headers=extra_headers)
 
-    async def get_ticks(self, market:str, interval:str, extra_headers: Optional[Dict[str, str]]=None):
-        timestamp = datetime.now().strftime("%s")
-        return await self._group.get_query(self._endpoint["TICKS"], params={"marketName": market,
-                                                                      "tickInterval": interval,
-                                                                      "_": timestamp})
+    async def get_ticks(self,
+                        market: str, interval: str,
+                        timestamp: Optional[str]=None,
+                        extra_headers: Optional[Dict[str, str]]=None):
+        if timestamp is None:
+            timestamp = datetime.now().strftime("%s")
+        return await self._group.get_query(self._endpoint["TICKS"],
+                                           params={"marketName": market,
+                                                   "tickInterval": interval,
+                                                   "_": timestamp},
+                                           extra_headers=extra_headers)
