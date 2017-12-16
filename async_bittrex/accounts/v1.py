@@ -28,7 +28,6 @@ class Account_v1_1:
                                            params={"currency": currency,
                                                    **self._group.get_protected_params()},
                                            extra_headers=extra_headers)
-        return await self._group.get_query(Account_v1_1.BALANCE, params=params, extra_headers=extra_headers)
 
     async def withdraw(self,
                        currency: str,
@@ -44,12 +43,16 @@ class Account_v1_1:
         if payment_id is not None:
             params["paymentid"] = payment_id
 
-        response = await self._group.get_query(self._endpoints["WITHDRAW"], params=params, extra_headers=extra_headers)
+        response = await self._group.get_query(self._endpoints["WITHDRAW"],
+                                               params=params,
+                                               extra_headers=extra_headers)
         response["currency"] = currency
         return response
 
     async def get_order(self, uuid: str, extra_headers: Optional[Dict[str, str]] = None) -> Dict[str, Any]:
-        return await self._group.get_query(self._endpoints["ORDER"], params={"uuid": uuid}, extra_headers=extra_headers)
+        return await self._group.get_query(self._endpoints["ORDER"],
+                                           params={"uuid": uuid},
+                                           extra_headers=extra_headers)
 
     async def get_order_history(self,
                                 market: Optional[str] = None,
@@ -58,7 +61,9 @@ class Account_v1_1:
         if market is not None:
             params["market"] = market
 
-        response = await self._group.get_query(self._endpoints["ORDER_HISTORY"], params=params, extra_headers=extra_headers)
+        response = await self._group.get_query(self._endpoints["ORDER_HISTORY"],
+                                               params=params,
+                                               extra_headers=extra_headers)
 
         if market is not None:
             response["market"] = market
@@ -70,7 +75,9 @@ class Account_v1_1:
         params = self._group.get_protected_params()
         if market is not None:
             params["market"] = market
-        response = await self._group.get_query(self._endpoints["WITHDRAWAL_HISTORY"], params=params, extra_headers=extra_headers)
+        response = await self._group.get_query(self._endpoints["WITHDRAWAL_HISTORY"],
+                                               params=params,
+                                               extra_headers=extra_headers)
         if market is not None:
             response["market"] = market
         return response
@@ -81,7 +88,9 @@ class Account_v1_1:
         params = self._group.get_protected_params()
         if market is not None:
             params["market"] = market
-        response = await self._group.get_query(self._endpoints["DEPOSIT_HISTORY"], params=params, extra_headers=extra_headers)
+        response = await self._group.get_query(self._endpoints["DEPOSIT_HISTORY"],
+                                               params=params,
+                                               extra_headers=extra_headers)
 
         if market is not None:
             response["market"] = market
