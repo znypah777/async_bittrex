@@ -5,6 +5,12 @@ from typing import Dict, Any, List, Optional
 
 
 class Market_v1_1:
+    """
+      Market section of Bittrex API as of v1.1
+
+      contains all the methods the Market section has
+    """
+
     def __init__(self, group:object, endpoints: Dict[str, str]):
         self._group = group
         self._endpoints = endpoints
@@ -44,7 +50,6 @@ class Market_v1_1:
                                                extra_headers=extra_headers)
         response["order_id"] = uuid
         return response
-
 
     async def get_open_orders(self,
                               market: Optional[str] = None,
